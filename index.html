@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Pernikahan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0b0b0b;
+      color: #e0e0e0;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    .mafia-font {
+      font-family: 'Cinzel Decorative', cursive;
+      letter-spacing: 2px;
+    }
+    .fade-section {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease-out;
+    }
+    .fade-section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body x-data="{ showPopup: true, guestName: '' }">
+
+  <!-- Popup Input Nama -->
+  <div x-show="showPopup" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50" x-transition>
+    <div class="bg-gray-900 border border-red-800 rounded-2xl shadow-2xl p-8 text-center w-80">
+      <h2 class="text-2xl mafia-font mb-4 text-white"><i class="fa-solid fa-envelope-open-text text-red-600 mr-2"></i>Undangan Untuk</h2>
+      <input type="text" x-model="guestName" placeholder="Masukkan nama Anda..." class="w-full px-4 py-2 mb-4 rounded-md bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-600">
+      <button @click="if(guestName.trim() !== '') showPopup=false" class="bg-red-700 hover:bg-red-900 text-white px-6 py-2 rounded-full text-lg transition">
+        Buka Undangan
+      </button>
+    </div>
+  </div>
+
+  <!-- Script animasi scroll -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const sections = document.querySelectorAll(".fade-section");
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add("show");
+        });
+      }, { threshold: 0.3 });
+      sections.forEach(sec => observer.observe(sec));
+    });
+  </script>
+
+  <!-- Cover -->
+  <section class="h-screen bg-gradient-to-b from-black via-gray-900 to-black flex flex-col items-center justify-center text-center fade-section">
+    <template x-if="guestName">
+      <p class="text-lg text-gray-400 italic mb-2">Kepada Yth. <span class="text-red-500 font-semibold" x-text="guestName"></span></p>
+    </template>
+    <div class="text-red-600 text-7xl mb-4 animate-pulse"><i class="fa-solid fa-rose"></i></div>
+    <h1 class="text-5xl md:text-6xl text-white mafia-font mb-4"><i class="fa-solid fa-gun mr-2"></i>Undangan Pernikahan</h1>
+    <h2 class="text-3xl text-gray-200 mb-2">Muhammad Abdullah Arridho, S.Kom</h2>
+    <h3 class="text-2xl text-gray-400">&amp;</h3>
+    <h2 class="text-3xl text-gray-200 mt-2">Aprillia Pusvita Sari</h2>
+    <i class="fa-solid fa-heart text-red-600 text-5xl animate-pulse mt-4"></i>
+  </section>
+
+  <!-- Kata Sambutan -->
+  <section class="py-20 px-6 text-center fade-section">
+    <p class="text-xl italic max-w-2xl mx-auto">
+      “Cinta sejati bukan tentang seberapa lama kamu bersama, tapi seberapa tulus kamu mencintai di setiap waktu.”
+    </p>
+    <template x-if="guestName">
+      <p class="mt-4 text-lg text-gray-300">Dengan penuh hormat kami mengundang <span class="text-red-500 font-semibold" x-text="guestName"></span> untuk hadir dalam hari bahagia kami.</p>
+    </template>
+    <div class="mt-6 text-red-600 text-5xl animate-bounce"><i class="fa-solid fa-rose"></i></div>
+  </section>
+
+  <!-- Hari & Tanggal -->
+  <section class="py-16 bg-black bg-opacity-60 text-center fade-section">
+    <h2 class="text-4xl mafia-font mb-4"><i class="fa-solid fa-calendar-days mr-2"></i>Hari Bahagia</h2>
+    <p class="text-2xl">Sabtu, 25 Januari 2026</p>
+    <div class="mt-6 animate-pulse">
+      <i class="fa-solid fa-champagne-glasses text-red-600 text-6xl"></i>
+    </div>
+  </section>
+
+  <!-- Harapan Hadir -->
+  <section class="py-20 px-6 text-center fade-section">
+    <h2 class="text-3xl mafia-font mb-6"><i class="fa-solid fa-hat-cowboy mr-2"></i>Kami Sangat Mengharapkan Kehadiran Anda</h2>
+    <p class="max-w-2xl mx-auto">
+      Kehadiran Anda akan menjadi kebahagiaan dan kehormatan bagi kami berdua.
+      Semoga kehadiran Anda dapat memberikan doa restu untuk perjalanan baru kami.
+    </p>
+  </section>
+
+  <!-- Kontak WA -->
+  <section class="py-20 bg-black text-center fade-section">
+    <p class="text-lg mb-4">Kontak Saya:</p>
+    <a href="https://wa.me/6287734197664" target="_blank" class="bg-red-700 hover:bg-red-900 text-white py-3 px-6 rounded-full text-xl transition transform hover:scale-105 inline-flex items-center gap-2">
+      <i class="fa-brands fa-whatsapp text-2xl"></i>
+      Hubungi via WhatsApp
+    </a>
+  </section>
+
+  <footer class="py-6 text-center text-sm text-gray-500">
+    © 2026 Abdullah &amp; Aprillia <i class="fa-solid fa-rose text-red-600"></i>
+  </footer>
+
+</body>
+</html>
