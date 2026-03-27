@@ -4,47 +4,73 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Undangan Pernikahan</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Alpine -->
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+  <!-- Icon -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #0b0b0b;
-      color: #e0e0e0;
+      background: radial-gradient(circle at top, #1a1a1a, #000000);
+      color: #e5e5e5;
       overflow-x: hidden;
       scroll-behavior: smooth;
     }
+
     .mafia-font {
       font-family: 'Cinzel Decorative', cursive;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
     }
+
+    .glass {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 0, 0, 0.2);
+    }
+
     .fade-section {
       opacity: 0;
-      transform: translateY(40px);
-      transition: all 1s ease-out;
+      transform: translateY(50px);
+      transition: all 1s ease;
     }
+
     .fade-section.show {
       opacity: 1;
       transform: translateY(0);
     }
+
+    .glow {
+      text-shadow: 0 0 10px rgba(255,0,0,0.7);
+    }
+
   </style>
 </head>
+
 <body x-data="{ showPopup: true, guestName: '' }">
 
-  <!-- Popup Input Nama -->
-  <div x-show="showPopup" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50" x-transition>
-    <div class="bg-gray-900 border border-red-800 rounded-2xl shadow-2xl p-8 text-center w-80">
-      <h2 class="text-2xl mafia-font mb-4 text-white"><i class="fa-solid fa-envelope-open-text text-red-600 mr-2"></i>Undangan Untuk</h2>
-      <input type="text" x-model="guestName" placeholder="Masukkan nama Anda..." class="w-full px-4 py-2 mb-4 rounded-md bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-600">
-      <button @click="if(guestName.trim() !== '') showPopup=false" class="bg-red-700 hover:bg-red-900 text-white px-6 py-2 rounded-full text-lg transition">
-        Buka Undangan
+  <!-- POPUP -->
+  <div x-show="showPopup" class="fixed inset-0 bg-black/90 flex items-center justify-center z-50" x-transition>
+    <div class="glass p-8 rounded-2xl text-center w-80 shadow-2xl">
+      <h2 class="text-2xl mafia-font mb-4 glow">Undangan Untuk</h2>
+      <input type="text" x-model="guestName" placeholder="Masukkan nama..."
+        class="w-full px-4 py-2 mb-4 rounded bg-black/40 border border-red-500 text-white focus:ring-2 focus:ring-red-600">
+      <button @click="if(guestName.trim()) showPopup=false"
+        class="bg-red-700 hover:bg-red-900 px-6 py-2 rounded-full transition">
+        Buka
       </button>
     </div>
   </div>
 
-  <!-- Script animasi scroll -->
+  <!-- SCRIPT ANIMASI -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const sections = document.querySelectorAll(".fade-section");
@@ -52,64 +78,86 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) entry.target.classList.add("show");
         });
-      }, { threshold: 0.3 });
+      }, { threshold: 0.2 });
       sections.forEach(sec => observer.observe(sec));
     });
   </script>
 
-  <!-- Cover -->
-  <section class="h-screen bg-gradient-to-b from-black via-gray-900 to-black flex flex-col items-center justify-center text-center fade-section">
+  <!-- HERO -->
+  <section class="h-screen flex flex-col justify-center items-center text-center fade-section">
+
     <template x-if="guestName">
-      <p class="text-lg text-gray-400 italic mb-2">Kepada Yth. <span class="text-red-500 font-semibold" x-text="guestName"></span></p>
+      <p class="text-gray-400 italic mb-2">
+        Kepada Yth. <span class="text-red-500 font-semibold" x-text="guestName"></span>
+      </p>
     </template>
-    <div class="text-red-600 text-7xl mb-4 animate-pulse"><i class="fa-solid fa-rose"></i></div>
-    <h1 class="text-5xl md:text-6xl text-white mafia-font mb-4"><i class="fa-solid fa-gun mr-2"></i>Undangan Pernikahan</h1>
-    <h2 class="text-3xl text-gray-200 mb-2">Muhammad Abdullah Arridho, S.Kom</h2>
-    <h3 class="text-2xl text-gray-400">&amp;</h3>
-    <h2 class="text-3xl text-gray-200 mt-2">Aprillia Pusvita Sari</h2>
-    <i class="fa-solid fa-heart text-red-600 text-5xl animate-pulse mt-4"></i>
+
+    <h1 class="text-5xl md:text-7xl mafia-font glow mb-4">
+      The Wedding
+    </h1>
+
+    <p class="text-xl text-gray-400 mb-6">We Are Getting Married</p>
+
+    <div class="text-3xl md:text-4xl font-semibold">
+      Muhammad Abdullah Arridho
+      <br>
+      <span class="text-red-600 text-2xl">&</span>
+      <br>
+      Aprillia Pusvita Sari
+    </div>
+
+    <div class="mt-6 text-red-600 text-5xl animate-pulse">
+      <i class="fa-solid fa-heart"></i>
+    </div>
+
   </section>
 
-  <!-- Kata Sambutan -->
-  <section class="py-20 px-6 text-center fade-section">
-    <p class="text-xl italic max-w-2xl mx-auto">
-      “Cinta sejati bukan tentang seberapa lama kamu bersama, tapi seberapa tulus kamu mencintai di setiap waktu.”
-    </p>
-    <template x-if="guestName">
-      <p class="mt-4 text-lg text-gray-300">Dengan penuh hormat kami mengundang <span class="text-red-500 font-semibold" x-text="guestName"></span> untuk hadir dalam hari bahagia kami.</p>
-    </template>
-    <div class="mt-6 text-red-600 text-5xl animate-bounce"><i class="fa-solid fa-rose"></i></div>
-  </section>
-
-  <!-- Hari & Tanggal -->
-  <section class="py-16 bg-black bg-opacity-60 text-center fade-section">
-    <h2 class="text-4xl mafia-font mb-4"><i class="fa-solid fa-calendar-days mr-2"></i>Hari Bahagia</h2>
-    <p class="text-2xl">Sabtu, 25 Januari 2026</p>
-    <div class="mt-6 animate-pulse">
-      <i class="fa-solid fa-champagne-glasses text-red-600 text-6xl"></i>
+  <!-- QUOTE -->
+  <section class="py-20 text-center px-6 fade-section">
+    <div class="glass max-w-2xl mx-auto p-6 rounded-xl">
+      <p class="italic text-lg">
+        "Cinta bukan tentang menemukan seseorang untuk hidup bersama,
+        tapi menemukan seseorang yang tidak bisa kamu hidup tanpanya."
+      </p>
     </div>
   </section>
 
-  <!-- Harapan Hadir -->
-  <section class="py-20 px-6 text-center fade-section">
-    <h2 class="text-3xl mafia-font mb-6"><i class="fa-solid fa-hat-cowboy mr-2"></i>Kami Sangat Mengharapkan Kehadiran Anda</h2>
-    <p class="max-w-2xl mx-auto">
-      Kehadiran Anda akan menjadi kebahagiaan dan kehormatan bagi kami berdua.
-      Semoga kehadiran Anda dapat memberikan doa restu untuk perjalanan baru kami.
-    </p>
+  <!-- TANGGAL -->
+  <section class="py-20 text-center fade-section">
+    <h2 class="text-4xl mafia-font mb-6 glow">Save The Date</h2>
+
+    <div class="glass inline-block px-10 py-6 rounded-xl">
+      <p class="text-xl">Rabu</p>
+      <p class="text-3xl font-bold text-red-500">3 Juni 2026</p>
+      <p class="text-lg mt-2">10.00 WIB - Selesai</p>
+    </div>
   </section>
 
-  <!-- Kontak WA -->
-  <section class="py-20 bg-black text-center fade-section">
-    <p class="text-lg mb-4">Kontak Saya:</p>
-    <a href="https://wa.me/6287734197664" target="_blank" class="bg-red-700 hover:bg-red-900 text-white py-3 px-6 rounded-full text-xl transition transform hover:scale-105 inline-flex items-center gap-2">
-      <i class="fa-brands fa-whatsapp text-2xl"></i>
-      Hubungi via WhatsApp
+  <!-- LOKASI -->
+  <section class="py-20 text-center px-6 fade-section">
+    <h2 class="text-3xl mafia-font mb-4">Lokasi Acara</h2>
+    <p class="text-gray-400">(Tambahkan alamat di sini)</p>
+
+    <a href="#"
+      class="inline-block mt-6 bg-red-700 hover:bg-red-900 px-6 py-3 rounded-full transition">
+      <i class="fa-solid fa-map-location-dot mr-2"></i>Lihat Maps
     </a>
   </section>
 
-  <footer class="py-6 text-center text-sm text-gray-500">
-    © 2026 Abdullah &amp; Aprillia <i class="fa-solid fa-rose text-red-600"></i>
+  <!-- RSVP -->
+  <section class="py-20 text-center fade-section">
+    <h2 class="text-3xl mafia-font mb-6">Konfirmasi Kehadiran</h2>
+
+    <a href="https://wa.me/6287734197664"
+      class="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-full inline-flex items-center gap-2 transition">
+      <i class="fa-brands fa-whatsapp"></i>
+      RSVP via WhatsApp
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-10 text-center text-gray-500 text-sm">
+    © 2026 Abdullah & Aprillia ❤️
   </footer>
 
 </body>
