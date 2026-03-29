@@ -479,7 +479,15 @@ Yaitu bertunangan!!!!
                 init() {
                     document.body.classList.add('no-scroll');
 
-                   
+                    // reset scroll ke atas
+                    window.scrollTo(0, 0);
+
+                    // matikan scroll restore browser
+                    if ('scrollRestoration' in history) {
+                        history.scrollRestoration = 'manual';
+                    }
+
+                    // 🔥 SCROLL REVEAL
                     window.addEventListener("scroll", () => {
                         const reveals = document.querySelectorAll(".reveal, .fade-down-map, .fade-up-text, .fade-up-soft, .zoom-soft");
 
@@ -495,7 +503,6 @@ Yaitu bertunangan!!!!
                         });
                     });
                 },
-
                 submitName() {
                     if (this.inputName.trim() !== '') {
                         this.guestName = this.inputName;
